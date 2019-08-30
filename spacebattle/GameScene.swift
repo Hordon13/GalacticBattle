@@ -12,6 +12,14 @@ import GameplayKit
 class GameScene: SKScene {
     
     let player = SKSpriteNode(imageNamed: "playership")
+    
+    func random() -> CGFloat {
+        return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
+    }
+    func random(min: CGFloat, max: CGFloat) -> CGFloat {
+        return random() * (max - min) + min
+    }
+    
     let gameArea: CGRect
     
     override init(size: CGSize) {
@@ -53,6 +61,31 @@ class GameScene: SKScene {
         let remove = SKAction.removeFromParent()
         let bulletSeq = SKAction.sequence([move, remove])
         bullet.run(bulletSeq)
+    }
+    
+    func spawnEnemy() {
+        
+        let startPoint = random(min: gameArea.minX, max: gameArea.maxX)
+        let endPoint = random(min: gameArea.minX, max: gameArea.maxX)
+        
+        let spawnPoint = CGPoint(x: startPoint, y: self.size.height * 1.2)
+        let exitPoint = CGPoint(x: endPoint, y: -self.size.height * 0.2)
+        
+        let enemy = SKSpriteNode(imageNamed: "enemyship")
+        enemy.setScale(0.7)
+        enemy.position = spawnPoint
+        enemy.zPosition = 2
+        self.addChild(enemy)
+        
+        let move = SKAction.move(to: exitPoint, duration: 1.5)
+        let remove = SKAction.removeFromParent()
+        let enemySeq = SKAction.sequence([move, remove])
+        enemy.run(enemySeq)
+        
+        let dx = exitPoint.x - spawnPoint.x
+        let dy = exitPoint.y - spawnPoint.y
+        let rotate = atan2(dy, dx)
+        enemy.zRotation = rotate
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
