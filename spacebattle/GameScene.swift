@@ -18,14 +18,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case afterGame
     }
     
-    var state = gameState.inGame
-    
+    var state = gameState.preGame
     
     var level = 0
     var lives = 3
     
     let scoreLabel = SKLabelNode(fontNamed: "The Bold Font")
     let livesLabel = SKLabelNode(fontNamed: "The Bold Font")
+    let startLabel = SKLabelNode(fontNamed: "The Bold Font")
     
     let player = SKSpriteNode(imageNamed: "playership")
     
@@ -71,7 +71,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(background)
         
         player.setScale(1.3)
-        player.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.2)
+        player.position = CGPoint(x: self.size.width / 2, y: 0 - player.size.height)
         player.zPosition = 2
         player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
         player.physicsBody!.affectedByGravity = false
@@ -84,7 +84,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.fontSize = 70
         scoreLabel.fontColor = SKColor.white
         scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
-        scoreLabel.position = CGPoint(x: self.size.width * 0.15, y: self.size.height * 0.9)
+        scoreLabel.position = CGPoint(x: self.size.width * 0.15, y: self.size.height + scoreLabel.frame.size.height)
         scoreLabel.zPosition = 100
         self.addChild(scoreLabel)
         
@@ -92,11 +92,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         livesLabel.fontSize = 70
         livesLabel.fontColor = SKColor.white
         livesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
-        livesLabel.position = CGPoint(x: self.size.width * 0.85, y: self.size.height * 0.9)
+        livesLabel.position = CGPoint(x: self.size.width * 0.85, y: self.size.height + livesLabel.frame.size.height)
         livesLabel.zPosition = 100
         self.addChild(livesLabel)
         
-        newLevel()
+        startLabel.text = "Tap to Begin"
+        startLabel.fontSize = 100
+        startLabel.fontColor = SKColor.white
+        startLabel.alpha = 0
+        startLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
+        startLabel.zPosition = 1
+        self.addChild(startLabel)
+        
+        let fadeIn = SKAction.fadeIn(withDuration: 0.3)
+        startLabel.run(fadeIn)
+    }
+    
+    func startGame() {
+        
+        state = gameState.inGame
+        
+        let fadeOut = SKAction.fadeIn(withDuration: 0.5)
+        let remove = SKAction.removeFromParent()
+        let removeSeq = SKAction.sequence([fadeOut, remove])
+        startLabel.run(removeSeq)
+        
+        let shipToScreen = SKAction.moveTo(y: self.size.height * 0.2, duration: 0.5)
+        let startLvl = SKAction.run(newLevel)
+        let startGameSeq = SKAction.sequence([shipToScreen, startLvl])
+        player.run(startGameSeq)
+        
+        let labelsToScreen = SKAction.moveTo(y: self.size.height * 0.9, duration: 0.6)
+        scoreLabel.run(labelsToScreen)
+        livesLabel.run(labelsToScreen)
     }
     
     func loseLife() {
@@ -142,7 +170,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         let changeSceneAction = SKAction.run(changeScene)
-        let freeze = SKAction.wait(forDuration: 1)
+        let freeze = SKAction.wait(forDuration: 0.5)
         let changeSceneSeq = SKAction.sequence([freeze, changeSceneAction])
         self.run(changeSceneSeq)
     }
@@ -296,7 +324,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        if state == gameState.inGame {
+        if state == gameState.preGame {
+            startGame()
+        } else if state == gameState.inGame {
             fire()
         }
     }
