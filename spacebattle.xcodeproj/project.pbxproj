@@ -16,6 +16,7 @@
 		F9EE9AD62319664500B2F467 /* boldfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9EE9AD52319664500B2F467 /* boldfont.ttf */; };
 		F9EE9AD82319A37E00B2F467 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EE9AD72319A37E00B2F467 /* GameOverScene.swift */; };
 		F9EE9ADA2319CA9400B2F467 /* StartScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EE9AD92319CA9400B2F467 /* StartScreen.swift */; };
+		F9EE9ADC2319D32A00B2F467 /* bg_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F9EE9ADB2319D32A00B2F467 /* bg_music.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		F9EE9AD52319664500B2F467 /* boldfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = boldfont.ttf; path = Assets/boldfont.ttf; sourceTree = SOURCE_ROOT; };
 		F9EE9AD72319A37E00B2F467 /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		F9EE9AD92319CA9400B2F467 /* StartScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreen.swift; sourceTree = "<group>"; };
+		F9EE9ADB2319D32A00B2F467 /* bg_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bg_music.mp3; path = Assets/bg_music.mp3; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				F9EE9AB8231912F800B2F467 /* GameViewController.swift */,
 				F9EE9ABA231912F800B2F467 /* Main.storyboard */,
 				F9EE9ABD231912FB00B2F467 /* Assets.xcassets */,
+				F9EE9ADB2319D32A00B2F467 /* bg_music.mp3 */,
 				F9EE9AD52319664500B2F467 /* boldfont.ttf */,
 				F9EE9ABF231912FB00B2F467 /* LaunchScreen.storyboard */,
 				F9EE9AC2231912FB00B2F467 /* Info.plist */,
@@ -137,6 +140,7 @@
 				F9EE9AD62319664500B2F467 /* boldfont.ttf in Resources */,
 				F9EE9ABC231912F800B2F467 /* Main.storyboard in Resources */,
 				F9EE9ABE231912FB00B2F467 /* Assets.xcassets in Resources */,
+				F9EE9ADC2319D32A00B2F467 /* bg_music.mp3 in Resources */,
 				F9EE9AC1231912FB00B2F467 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
