@@ -39,6 +39,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func random() -> CGFloat {
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
     }
+    
     func random(min: CGFloat, max: CGFloat) -> CGFloat {
         return random() * (max - min) + min
     }
@@ -64,11 +65,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.physicsWorld.contactDelegate = self
         
-        let background = SKSpriteNode(imageNamed: "background")
-        background.size = self.size
-        background.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
-        background.zPosition = 0
-        self.addChild(background)
+        for i in 0...1 {
+            let background = SKSpriteNode(imageNamed: "background")
+            background.name = "Background"
+            background.size = self.size
+            background.anchorPoint = CGPoint(x: 0.5, y: 0)
+            background.position = CGPoint(x: self.size.width / 2, y: self.size.height * CGFloat(i))
+            background.zPosition = 0
+            self.addChild(background)
+        }
         
         player.setScale(1.3)
         player.position = CGPoint(x: self.size.width / 2, y: 0 - player.size.height)
@@ -106,6 +111,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let fadeIn = SKAction.fadeIn(withDuration: 0.3)
         startLabel.run(fadeIn)
+    }
+    
+    var lastUpdateTime: TimeInterval = 0
+    var deltaFrameTime: TimeInterval = 0
+    var moveAmountPerSec: CGFloat = 200
+    
+    override func update(_ currentTime: TimeInterval) {
+        
+        if lastUpdateTime == 0 {
+            lastUpdateTime = currentTime
+        } else {
+            deltaFrameTime = currentTime - lastUpdateTime
+            lastUpdateTime = currentTime
+        }
+        
+        let moveBy = moveAmountPerSec * CGFloat(deltaFrameTime)
+        
+        self.enumerateChildNodes(withName: "Background") {
+            background, stop in
+            
+            if self.state == gameState.inGame || self.state == gameState.preGame {
+                background.position.y -= moveBy
+            }
+            
+            if background.position.y < -self.size.height {
+                background.position.y += self.size.height * 2
+            }
+        }
     }
     
     func startGame() {
@@ -252,12 +285,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var spawnSpeed = TimeInterval()
         
         switch level {
-        case 1: spawnSpeed = 1.2
-        case 2: spawnSpeed = 1
-        case 3: spawnSpeed = 0.8
-        case 4: spawnSpeed = 0.5
-        default:
-            spawnSpeed = 0.5
+            case 1: spawnSpeed = 1.2; moveAmountPerSec = 300
+            case 2: spawnSpeed = 1.0; moveAmountPerSec = 500
+            case 3: spawnSpeed = 0.8; moveAmountPerSec = 700
+            case 4: spawnSpeed = 0.5; moveAmountPerSec = 1000
+            default:
+                spawnSpeed = 0.5
         }
         
         let spawn = SKAction.run(spawnEnemy)
@@ -307,7 +340,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemy.physicsBody!.contactTestBitMask = PhysicsCategories.Player | PhysicsCategories.Bullet
         self.addChild(enemy)
         
-        let move = SKAction.move(to: exitPoint, duration: 1.5)
+        var speed = TimeInterval()
+        switch level {
+            case 1: speed = 2.5
+            case 2: speed = 2.3
+            case 3: speed = 1.8
+            case 4: speed = 1.5
+            default:
+                speed = 0.5
+        }
+        
+        let move = SKAction.move(to: exitPoint, duration: speed)
         let remove = SKAction.removeFromParent()
         let loseLifeAction = SKAction.run(loseLife)
         let enemySeq = SKAction.sequence([move, remove, loseLifeAction])
