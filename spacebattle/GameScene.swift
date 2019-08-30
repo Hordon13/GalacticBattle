@@ -13,8 +13,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var score = 0
     var level = 0
+    var lives = 3
     
     let scoreLabel = SKLabelNode(fontNamed: "The Bold Font")
+    let livesLabel = SKLabelNode(fontNamed: "The Bold Font")
     
     let player = SKSpriteNode(imageNamed: "playership")
     
@@ -75,7 +77,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.zPosition = 100
         self.addChild(scoreLabel)
         
+        livesLabel.text = "Lives: 3"
+        livesLabel.fontSize = 70
+        livesLabel.fontColor = SKColor.white
+        livesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
+        livesLabel.position = CGPoint(x: self.size.width * 0.85, y: self.size.height * 0.9)
+        livesLabel.zPosition = 100
+        self.addChild(livesLabel)
+        
         newLevel()
+    }
+    
+    func loseLife() {
+        
+        lives -= 1
+        livesLabel.text = "Lives: \(lives)"
+        
+        let colorizeRed = SKAction.colorize(with: SKColor.red, colorBlendFactor: 1, duration: 0.001)
+        let scaleUp = SKAction.scale(to: 1.2, duration: 0.2)
+        let scaleDown = SKAction.scale(to: 1, duration: 0.2)
+        let colorizeWhite = SKAction.colorize(with: SKColor.white, colorBlendFactor: 1, duration: 0.001)
+        let scaleSeq = SKAction.sequence([colorizeRed ,scaleUp, scaleDown, colorizeWhite])
+        livesLabel.run(scaleSeq)
     }
     
     func addScore() {
@@ -210,7 +233,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let move = SKAction.move(to: exitPoint, duration: 1.5)
         let remove = SKAction.removeFromParent()
-        let enemySeq = SKAction.sequence([move, remove])
+        let loseLifeAction = SKAction.run(loseLife)
+        let enemySeq = SKAction.sequence([move, remove, loseLifeAction])
         enemy.run(enemySeq)
         
         let dx = exitPoint.x - spawnPoint.x
