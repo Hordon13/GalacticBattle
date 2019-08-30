@@ -12,6 +12,20 @@ import GameplayKit
 class GameScene: SKScene {
     
     let player = SKSpriteNode(imageNamed: "playership")
+    let gameArea: CGRect
+    
+    override init(size: CGSize) {
+        
+        let maxAspectRatio: CGFloat = 16.0 / 9.0
+        let playWidth = size.height / maxAspectRatio
+        let margin = (size.width - playWidth) / 2
+        gameArea = CGRect(x: margin, y: 0, width: playWidth, height: size.height)
+        super.init(size: size)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func didMove(to view: SKView) {
         
@@ -53,6 +67,14 @@ class GameScene: SKScene {
             let prevPoint = touch.previousLocation(in: self)
             let moveAmount = touchPoint.x - prevPoint.x
             player.position.x += moveAmount
+            
+            if player.position.x >= gameArea.maxX - player.size.width / 2 {
+                player.position.x = gameArea.maxX - player.size.width / 2
+            }
+            
+            if player.position.x <= gameArea.minX + player.size.width / 2 {
+                player.position.x = gameArea.minX + player.size.width / 2
+            }
         }
     }
 }
