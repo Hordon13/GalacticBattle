@@ -11,8 +11,12 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    var score = 0
+    var level = 0
+    
+    let scoreLabel = SKLabelNode(fontNamed: "The Bold Font")
+    
     let player = SKSpriteNode(imageNamed: "playership")
-    let explosion = SKAction.playSoundFileNamed("blast.wav", waitForCompletion: false)
     
     struct PhysicsCategories {
         static let None : UInt32 = 0
@@ -63,7 +67,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody!.contactTestBitMask = PhysicsCategories.Enemy
         self.addChild(player)
         
+        scoreLabel.text = "Score: 0"
+        scoreLabel.fontSize = 70
+        scoreLabel.fontColor = SKColor.white
+        scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
+        scoreLabel.position = CGPoint(x: self.size.width * 0.15, y: self.size.height * 0.9)
+        scoreLabel.zPosition = 100
+        self.addChild(scoreLabel)
+        
         newLevel()
+    }
+    
+    func addScore() {
+        
+        score += 1
+        scoreLabel.text = "Score: \(score)"
+        
+        if score == 10 || score == 25 || score == 50 {
+            newLevel()
+        }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -95,6 +117,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if body1.categoryBitMask == PhysicsCategories.Bullet && body2.categoryBitMask == PhysicsCategories.Enemy && (body2.node?.position.y)! < self.size.height {
             
+            addScore()
+            
             if body2.node != nil {
                 blast(position: body2.node!.position)
             }
@@ -116,17 +140,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let fadeOut = SKAction.fadeOut(withDuration: 0.1)
         let remove = SKAction.removeFromParent()
         
-        let blastSeq = SKAction.sequence([explosion, scaleIn, fadeOut, remove])
+        let blastSeq = SKAction.sequence([scaleIn, fadeOut, remove])
         blast.run(blastSeq)
     }
     
     func newLevel() {
         
+        level += 1
+        
+        if self.action(forKey: "spawnEnemy") != nil {
+            self.removeAction(forKey: "spawnEnemy")
+        }
+        
+        var spawnSpeed = TimeInterval()
+        
+        switch level {
+        case 1: spawnSpeed = 1.2
+        case 2: spawnSpeed = 1
+        case 3: spawnSpeed = 0.8
+        case 4: spawnSpeed = 0.5
+        default:
+            spawnSpeed = 0.5
+        }
+        
         let spawn = SKAction.run(spawnEnemy)
-        let wait = SKAction.wait(forDuration: 1)
-        let spawnSeq = SKAction.sequence([spawn, wait])
+        let wait = SKAction.wait(forDuration: spawnSpeed)
+        let spawnSeq = SKAction.sequence([wait, spawn])
         let spawnMachnism = SKAction.repeatForever(spawnSeq)
-        self.run(spawnMachnism)
+        self.run(spawnMachnism, withKey: "spawnEnemy")
     }
     
     func fire() {
