@@ -11,6 +11,14 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    enum gameState {
+        case preGame
+        case inGame
+        case afterGame
+    }
+    
+    var state = gameState.inGame
+    
     var score = 0
     var level = 0
     var lives = 3
@@ -99,6 +107,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let colorizeWhite = SKAction.colorize(with: SKColor.white, colorBlendFactor: 1, duration: 0.001)
         let scaleSeq = SKAction.sequence([colorizeRed ,scaleUp, scaleDown, colorizeWhite])
         livesLabel.run(scaleSeq)
+        
+        if lives == 0 {
+            gameOver()
+        }
     }
     
     func addScore() {
@@ -108,6 +120,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if score == 10 || score == 25 || score == 50 {
             newLevel()
+        }
+    }
+    
+    func gameOver() {
+        
+        state = gameState.afterGame
+        
+        self.removeAllActions()
+        self.enumerateChildNodes(withName: "Bullet") {
+            bullet, stop in
+            bullet.removeAllActions()
+        }
+        
+        self.enumerateChildNodes(withName: "Enemy") {
+            enemy, stop in
+            enemy.removeAllActions()
         }
     }
     
@@ -136,6 +164,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             body1.node?.removeFromParent()
             body2.node?.removeFromParent()
+            
+            gameOver()
         }
         
         if body1.categoryBitMask == PhysicsCategories.Bullet && body2.categoryBitMask == PhysicsCategories.Enemy && (body2.node?.position.y)! < self.size.height {
@@ -196,6 +226,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func fire() {
         
         let bullet = SKSpriteNode(imageNamed: "bullet")
+        bullet.name = "Bullet"
         bullet.setScale(0.8)
         bullet.position = player.position
         bullet.zPosition = 1
@@ -221,6 +252,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let exitPoint = CGPoint(x: endPoint, y: -self.size.height * 0.2)
         
         let enemy = SKSpriteNode(imageNamed: "enemyship")
+        enemy.name = "Enemy"
         enemy.setScale(0.7)
         enemy.position = spawnPoint
         enemy.zPosition = 2
@@ -235,7 +267,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let remove = SKAction.removeFromParent()
         let loseLifeAction = SKAction.run(loseLife)
         let enemySeq = SKAction.sequence([move, remove, loseLifeAction])
-        enemy.run(enemySeq)
+        
+        if state == gameState.inGame {
+            enemy.run(enemySeq)
+        }
         
         let dx = exitPoint.x - spawnPoint.x
         let dy = exitPoint.y - spawnPoint.y
@@ -244,7 +279,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        fire()
+        
+        if state == gameState.inGame {
+            fire()
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -254,7 +292,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let touchPoint = touch.location(in: self)
             let prevPoint = touch.previousLocation(in: self)
             let moveAmount = touchPoint.x - prevPoint.x
-            player.position.x += moveAmount
+            
+            if state == gameState.inGame {
+                player.position.x += moveAmount
+            }
             
             if player.position.x >= gameArea.maxX - player.size.width / 2 {
                 player.position.x = gameArea.maxX - player.size.width / 2
