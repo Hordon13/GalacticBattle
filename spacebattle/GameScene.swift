@@ -9,6 +9,7 @@
 import SpriteKit
 import GameplayKit
 
+var score = 0
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     enum gameState {
@@ -19,7 +20,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var state = gameState.inGame
     
-    var score = 0
+    
     var level = 0
     var lives = 3
     
@@ -58,6 +59,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func didMove(to view: SKView) {
+        
+        score = 0
         
         self.physicsWorld.contactDelegate = self
         
@@ -137,6 +140,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             enemy, stop in
             enemy.removeAllActions()
         }
+        
+        let changeSceneAction = SKAction.run(changeScene)
+        let freeze = SKAction.wait(forDuration: 1)
+        let changeSceneSeq = SKAction.sequence([freeze, changeSceneAction])
+        self.run(changeSceneSeq)
+    }
+    
+    func changeScene() {
+        
+        let moveToScene = GameOverScene(size: self.size)
+        moveToScene.scaleMode = self.scaleMode
+        let transitionGameOver = SKTransition.fade(withDuration: 0.5)
+        self.view!.presentScene(moveToScene, transition: transitionGameOver)
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
