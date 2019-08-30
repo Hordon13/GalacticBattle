@@ -53,7 +53,7 @@ class GameOverScene: SKScene {
         self.addChild(highScoreLabel)
         
         restartLabel.text = "Try Again"
-        restartLabel.fontSize = 70
+        restartLabel.fontSize = 90
         restartLabel.fontColor = SKColor.white
         restartLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.2)
         restartLabel.zPosition = 1

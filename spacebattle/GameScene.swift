@@ -27,6 +27,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let livesLabel = SKLabelNode(fontNamed: "The Bold Font")
     let startLabel = SKLabelNode(fontNamed: "The Bold Font")
     
+    let bulletEffect = SKAction.playSoundFileNamed("lasergun.wav", waitForCompletion: false)
+    let blastEffect = SKAction.playSoundFileNamed("blast.wav", waitForCompletion: false)
+    let gameOverEffect = SKAction.playSoundFileNamed("gameover.wav", waitForCompletion: true)
+    
     let player = SKSpriteNode(imageNamed: "playership")
     
     struct PhysicsCategories {
@@ -203,8 +207,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         let changeSceneAction = SKAction.run(changeScene)
-        let freeze = SKAction.wait(forDuration: 0.5)
-        let changeSceneSeq = SKAction.sequence([freeze, changeSceneAction])
+        let changeSceneSeq = SKAction.sequence([gameOverEffect, changeSceneAction])
         self.run(changeSceneSeq)
     }
     
@@ -270,7 +273,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let fadeOut = SKAction.fadeOut(withDuration: 0.1)
         let remove = SKAction.removeFromParent()
         
-        let blastSeq = SKAction.sequence([scaleIn, fadeOut, remove])
+        let blastSeq = SKAction.sequence([blastEffect, scaleIn, fadeOut, remove])
         blast.run(blastSeq)
     }
     
@@ -316,7 +319,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let move = SKAction.moveTo(y: self.size.height + bullet.size.height, duration: 1)
         let remove = SKAction.removeFromParent()
-        let bulletSeq = SKAction.sequence([move, remove])
+        let bulletSeq = SKAction.sequence([bulletEffect, move, remove])
         bullet.run(bulletSeq)
     }
     
