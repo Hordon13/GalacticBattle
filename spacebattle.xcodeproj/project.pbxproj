@@ -15,6 +15,7 @@
 		F9EE9AC1231912FB00B2F467 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9EE9ABF231912FB00B2F467 /* LaunchScreen.storyboard */; };
 		F9EE9AD62319664500B2F467 /* boldfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9EE9AD52319664500B2F467 /* boldfont.ttf */; };
 		F9EE9AD82319A37E00B2F467 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EE9AD72319A37E00B2F467 /* GameOverScene.swift */; };
+		F9EE9ADA2319CA9400B2F467 /* StartScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EE9AD92319CA9400B2F467 /* StartScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		F9EE9AC2231912FB00B2F467 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9EE9AD52319664500B2F467 /* boldfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = boldfont.ttf; path = Assets/boldfont.ttf; sourceTree = SOURCE_ROOT; };
 		F9EE9AD72319A37E00B2F467 /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		F9EE9AD92319CA9400B2F467 /* StartScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				F9EE9AB0231912F800B2F467 /* AppDelegate.swift */,
+				F9EE9AD92319CA9400B2F467 /* StartScreen.swift */,
 				F9EE9AB6231912F800B2F467 /* GameScene.swift */,
 				F9EE9AD72319A37E00B2F467 /* GameOverScene.swift */,
 				F9EE9AB8231912F800B2F467 /* GameViewController.swift */,
@@ -147,6 +150,7 @@
 			files = (
 				F9EE9AB7231912F800B2F467 /* GameScene.swift in Sources */,
 				F9EE9AB9231912F800B2F467 /* GameViewController.swift in Sources */,
+				F9EE9ADA2319CA9400B2F467 /* StartScreen.swift in Sources */,
 				F9EE9AD82319A37E00B2F467 /* GameOverScene.swift in Sources */,
 				F9EE9AB1231912F800B2F467 /* AppDelegate.swift in Sources */,
 			);
