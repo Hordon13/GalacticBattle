@@ -47,6 +47,17 @@ class GameScene: SKScene {
         player.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.2)
         player.zPosition = 2
         self.addChild(player)
+        
+        newLevel()
+    }
+    
+    func newLevel() {
+        
+        let spawn = SKAction.run(spawnEnemy)
+        let wait = SKAction.wait(forDuration: 1)
+        let spawnSeq = SKAction.sequence([spawn, wait])
+        let spawnMachnism = SKAction.repeatForever(spawnSeq)
+        self.run(spawnMachnism)
     }
     
     func fire() {
