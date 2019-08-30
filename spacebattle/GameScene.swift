@@ -12,6 +12,7 @@ import GameplayKit
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     let player = SKSpriteNode(imageNamed: "playership")
+    let explosion = SKAction.playSoundFileNamed("blast.wav", waitForCompletion: false)
     
     struct PhysicsCategories {
         static let None : UInt32 = 0
@@ -63,6 +64,60 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(player)
         
         newLevel()
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        
+        var body1 = SKPhysicsBody()
+        var body2 = SKPhysicsBody()
+        
+        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+            body1 = contact.bodyA
+            body2 = contact.bodyB
+        } else {
+            body1 = contact.bodyB
+            body2 = contact.bodyA
+        }
+        
+        if body1.categoryBitMask == PhysicsCategories.Player && body2.categoryBitMask == PhysicsCategories.Enemy {
+            
+            if body1.node != nil {
+                blast(position: body1.node!.position)
+            }
+            
+            if body2.node != nil {
+                blast(position: body2.node!.position)
+            }
+            
+            body1.node?.removeFromParent()
+            body2.node?.removeFromParent()
+        }
+        
+        if body1.categoryBitMask == PhysicsCategories.Bullet && body2.categoryBitMask == PhysicsCategories.Enemy && (body2.node?.position.y)! < self.size.height {
+            
+            if body2.node != nil {
+                blast(position: body2.node!.position)
+            }
+            
+            body1.node?.removeFromParent()
+            body2.node?.removeFromParent()
+        }
+    }
+    
+    func blast(position: CGPoint) {
+        
+        let blast = SKSpriteNode(imageNamed: "blast")
+        blast.position = position
+        blast.zPosition = 3
+        blast.setScale(0)
+        self.addChild(blast)
+        
+        let scaleIn = SKAction.scale(to: 1, duration: 0.1)
+        let fadeOut = SKAction.fadeOut(withDuration: 0.1)
+        let remove = SKAction.removeFromParent()
+        
+        let blastSeq = SKAction.sequence([explosion, scaleIn, fadeOut, remove])
+        blast.run(blastSeq)
     }
     
     func newLevel() {
