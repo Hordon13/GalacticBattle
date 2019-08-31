@@ -41,7 +41,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func random() -> CGFloat {
-        return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
+        return CGFloat(Float(arc4random()) / Float(UINT32_MAX))
     }
     
     func random(min: CGFloat, max: CGFloat) -> CGFloat {
@@ -248,7 +248,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             gameOver()
         }
         
-        if body1.categoryBitMask == PhysicsCategories.Bullet && body2.categoryBitMask == PhysicsCategories.Enemy && (body2.node?.position.y)! < self.size.height {
+        if body1.categoryBitMask == PhysicsCategories.Bullet && body2.categoryBitMask == PhysicsCategories.Enemy {
             
             addScore()
             

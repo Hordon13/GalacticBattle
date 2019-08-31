@@ -23,7 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F9EE9AAD231912F800B2F467 /* spacebattle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = spacebattle.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9EE9AAD231912F800B2F467 /* Galactic Battle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Galactic Battle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9EE9AB0231912F800B2F467 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9EE9AB6231912F800B2F467 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		F9EE9AB8231912F800B2F467 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -31,13 +31,13 @@
 		F9EE9ABD231912FB00B2F467 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F9EE9AC0231912FB00B2F467 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F9EE9AC2231912FB00B2F467 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F9EE9AD52319664500B2F467 /* boldfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = boldfont.ttf; path = Assets/boldfont.ttf; sourceTree = SOURCE_ROOT; };
+		F9EE9AD52319664500B2F467 /* boldfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = boldfont.ttf; path = spacebattle/boldfont.ttf; sourceTree = SOURCE_ROOT; };
 		F9EE9AD72319A37E00B2F467 /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		F9EE9AD92319CA9400B2F467 /* StartScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreen.swift; sourceTree = "<group>"; };
-		F9EE9ADE2319DE6B00B2F467 /* lasergun.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = lasergun.wav; path = Assets/lasergun.wav; sourceTree = SOURCE_ROOT; };
-		F9EE9AE12319DF8700B2F467 /* blast.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = blast.wav; path = Assets/blast.wav; sourceTree = SOURCE_ROOT; };
-		F9EE9AE32319E00700B2F467 /* gameover.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = gameover.wav; path = Assets/gameover.wav; sourceTree = SOURCE_ROOT; };
-		F9EE9AE52319E24900B2F467 /* bg_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bg_music.mp3; path = Assets/bg_music.mp3; sourceTree = SOURCE_ROOT; };
+		F9EE9ADE2319DE6B00B2F467 /* lasergun.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = lasergun.wav; path = spacebattle/lasergun.wav; sourceTree = SOURCE_ROOT; };
+		F9EE9AE12319DF8700B2F467 /* blast.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = blast.wav; path = spacebattle/blast.wav; sourceTree = SOURCE_ROOT; };
+		F9EE9AE32319E00700B2F467 /* gameover.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = gameover.wav; path = spacebattle/gameover.wav; sourceTree = SOURCE_ROOT; };
+		F9EE9AE52319E24900B2F467 /* bg_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bg_music.mp3; path = spacebattle/bg_music.mp3; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +62,7 @@
 		F9EE9AAE231912F800B2F467 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F9EE9AAD231912F800B2F467 /* spacebattle.app */,
+				F9EE9AAD231912F800B2F467 /* Galactic Battle.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,22 +70,38 @@
 		F9EE9AAF231912F800B2F467 /* spacebattle */ = {
 			isa = PBXGroup;
 			children = (
-				F9EE9AB0231912F800B2F467 /* AppDelegate.swift */,
+				F9EE9B09231A548800B2F467 /* other */,
+				F9EE9B08231A546400B2F467 /* assets */,
 				F9EE9AD92319CA9400B2F467 /* StartScreen.swift */,
 				F9EE9AB6231912F800B2F467 /* GameScene.swift */,
 				F9EE9AD72319A37E00B2F467 /* GameOverScene.swift */,
 				F9EE9AB8231912F800B2F467 /* GameViewController.swift */,
-				F9EE9ABA231912F800B2F467 /* Main.storyboard */,
-				F9EE9ABD231912FB00B2F467 /* Assets.xcassets */,
-				F9EE9AE52319E24900B2F467 /* bg_music.mp3 */,
-				F9EE9ADE2319DE6B00B2F467 /* lasergun.wav */,
-				F9EE9AE12319DF8700B2F467 /* blast.wav */,
-				F9EE9AE32319E00700B2F467 /* gameover.wav */,
-				F9EE9AD52319664500B2F467 /* boldfont.ttf */,
-				F9EE9ABF231912FB00B2F467 /* LaunchScreen.storyboard */,
-				F9EE9AC2231912FB00B2F467 /* Info.plist */,
 			);
 			path = spacebattle;
+			sourceTree = "<group>";
+		};
+		F9EE9B08231A546400B2F467 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				F9EE9ABD231912FB00B2F467 /* Assets.xcassets */,
+				F9EE9AD52319664500B2F467 /* boldfont.ttf */,
+				F9EE9AE52319E24900B2F467 /* bg_music.mp3 */,
+				F9EE9AE12319DF8700B2F467 /* blast.wav */,
+				F9EE9ADE2319DE6B00B2F467 /* lasergun.wav */,
+				F9EE9AE32319E00700B2F467 /* gameover.wav */,
+			);
+			name = assets;
+			sourceTree = "<group>";
+		};
+		F9EE9B09231A548800B2F467 /* other */ = {
+			isa = PBXGroup;
+			children = (
+				F9EE9AC2231912FB00B2F467 /* Info.plist */,
+				F9EE9ABF231912FB00B2F467 /* LaunchScreen.storyboard */,
+				F9EE9ABA231912F800B2F467 /* Main.storyboard */,
+				F9EE9AB0231912F800B2F467 /* AppDelegate.swift */,
+			);
+			name = other;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -105,7 +121,7 @@
 			);
 			name = spacebattle;
 			productName = spacebattle;
-			productReference = F9EE9AAD231912F800B2F467 /* spacebattle.app */;
+			productReference = F9EE9AAD231912F800B2F467 /* Galactic Battle.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -320,8 +336,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = hordon.spacebattle;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = hordon.galacticbattle;
+				PRODUCT_NAME = "Galactic Battle";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -339,8 +355,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = hordon.spacebattle;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = hordon.galacticbattle;
+				PRODUCT_NAME = "Galactic Battle";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
