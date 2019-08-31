@@ -32,6 +32,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let gameOverEffect = SKAction.playSoundFileNamed("gameover.wav", waitForCompletion: true)
     
     let player = SKSpriteNode(imageNamed: "playership")
+    let moon = SKSpriteNode(imageNamed: "moon")
+    let planet = SKSpriteNode(imageNamed: "planet")
     
     struct PhysicsCategories {
         static let None : UInt32 = 0
@@ -79,9 +81,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.addChild(background)
         }
         
+        moon.position = CGPoint(x: self.size.width * 0.8, y: self.size.height * 0.85)
+        moon.zPosition = 1
+        moon.zRotation = -0.3
+        moon.alpha = 0.7
+        moon.anchorPoint = CGPoint(x: 0.5, y: 0)
+        self.addChild(moon)
+        
+        planet.position = CGPoint(x: self.size.width * 0.3, y: self.size.height * 3 + self.size.height * 0.1)
+        planet.zPosition = 1
+        planet.zRotation = 0.2
+        planet.alpha = 0.8
+        planet.anchorPoint = CGPoint(x: 0.5, y: 0)
+        self.addChild(planet)
+        
         player.setScale(1.3)
         player.position = CGPoint(x: self.size.width / 2, y: 0 - player.size.height)
-        player.zPosition = 2
+        player.zPosition = 3
         player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
         player.physicsBody!.affectedByGravity = false
         player.physicsBody!.categoryBitMask = PhysicsCategories.Player
@@ -143,10 +159,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             if self.state == gameState.inGame || self.state == gameState.preGame {
                 background.position.y -= moveBy
+                self.moon.position.y -= moveBy
+                self.planet.position.y -= moveBy
             }
             
             if background.position.y < -self.size.height {
                 background.position.y += self.size.height * 2
+            }
+            
+            if self.moon.position.y < -self.size.height {
+                self.moon.position.y += self.size.height * 4
+            }
+            
+            if self.planet.position.y < -self.size.height {
+                self.planet.position.y += self.size.height * 4
             }
         }
     }
@@ -271,7 +297,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let blast = SKSpriteNode(imageNamed: "blast")
         blast.position = position
-        blast.zPosition = 3
+        blast.zPosition = 4
         blast.setScale(0)
         self.addChild(blast)
         
@@ -315,7 +341,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bullet.name = "Bullet"
         bullet.setScale(0.8)
         bullet.position = player.position
-        bullet.zPosition = 1
+        bullet.zPosition = 2
         bullet.physicsBody = SKPhysicsBody(rectangleOf: bullet.size)
         bullet.physicsBody!.affectedByGravity = false
         bullet.physicsBody!.categoryBitMask = PhysicsCategories.Bullet
@@ -341,7 +367,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemy.name = "Enemy"
         enemy.setScale(0.7)
         enemy.position = spawnPoint
-        enemy.zPosition = 2
+        enemy.zPosition = 3
         enemy.physicsBody = SKPhysicsBody(rectangleOf: enemy.size)
         enemy.physicsBody!.affectedByGravity = false
         enemy.physicsBody!.categoryBitMask = PhysicsCategories.Enemy

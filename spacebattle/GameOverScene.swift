@@ -20,11 +20,25 @@ class GameOverScene: SKScene {
         background.zPosition = 0
         self.addChild(background)
         
+        let moon = SKSpriteNode(imageNamed: "moon")
+        moon.position = CGPoint(x: self.size.width * 0.8, y: self.size.height * 0.35)
+        moon.zPosition = 1
+        moon.zRotation = -0.3
+        moon.alpha = 0.8
+        self.addChild(moon)
+        
+        let planet = SKSpriteNode(imageNamed: "planet")
+        planet.position = CGPoint(x: self.size.width * 0.2, y: self.size.height * 0.65)
+        planet.zPosition = 1
+        planet.zRotation = 0.2
+        planet.alpha = 0.9
+        self.addChild(planet)
+        
         let gameOverLabel = SKLabelNode(fontNamed: "The Bold Font")
         gameOverLabel.text = "Game Over"
         gameOverLabel.fontSize = 180
-        gameOverLabel.fontColor = SKColor.red
-        gameOverLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.75)
+        gameOverLabel.fontColor = SKColor.white
+        gameOverLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.8)
         gameOverLabel.zPosition = 1
         self.addChild(gameOverLabel)
         
@@ -38,9 +52,9 @@ class GameOverScene: SKScene {
         
         let highScoreLabel = SKLabelNode(fontNamed: "The Bold Font")
         highScoreLabel.text = "Best: \(highScore)"
-        highScoreLabel.fontSize = 100
+        highScoreLabel.fontSize = 110
         highScoreLabel.fontColor = SKColor.white
-        highScoreLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.6)
+        highScoreLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.55)
         highScoreLabel.zPosition = 1
         self.addChild(highScoreLabel)
         
@@ -48,14 +62,14 @@ class GameOverScene: SKScene {
         scoreLabel.text = "Score: \(score)"
         scoreLabel.fontSize = 100
         scoreLabel.fontColor = SKColor.white
-        scoreLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.5)
+        scoreLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.475)
         scoreLabel.zPosition = 1
         self.addChild(scoreLabel)
         
         restartLabel.text = "Try Again"
         restartLabel.fontSize = 90
         restartLabel.fontColor = SKColor.yellow
-        restartLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.2)
+        restartLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.15)
         restartLabel.zPosition = 1
         self.addChild(restartLabel)
         
