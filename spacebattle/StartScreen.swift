@@ -47,10 +47,16 @@ class StartScreen: SKScene {
         startGame.name = "startButton"
         startGame.text = "Start Game"
         startGame.fontSize = 125
-        startGame.fontColor = SKColor.white
+        startGame.fontColor = SKColor.yellow
         startGame.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.3)
         startGame.zPosition = 1
         self.addChild(startGame)
+        
+        let faintOut = SKAction.fadeAlpha(to: 0.2, duration: 1)
+        let faintIn = SKAction.fadeAlpha(to: 1.0, duration: 0.7)
+        let faintSeq = SKAction.sequence([faintOut, faintIn])
+        let faintEffect = SKAction.repeatForever(faintSeq)
+        startGame.run(faintEffect)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

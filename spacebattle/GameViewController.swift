@@ -28,7 +28,6 @@ class GameViewController: UIViewController {
         }
         
         audioPlayer.numberOfLoops = -1
-        audioPlayer.volume = 0.7
         audioPlayer.play()
         
         if let view = self.view as! SKView? {

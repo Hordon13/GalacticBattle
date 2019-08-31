@@ -115,6 +115,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let fadeIn = SKAction.fadeIn(withDuration: 0.3)
         startLabel.run(fadeIn)
+        
+        let faintOut = SKAction.fadeAlpha(to: 0.2, duration: 0.5)
+        let faintIn = SKAction.fadeAlpha(to: 1.0, duration: 0.5)
+        let faintSeq = SKAction.sequence([faintOut, faintIn])
+        let faintEffect = SKAction.repeatForever(faintSeq)
+        startLabel.run(faintEffect)
     }
     
     var lastUpdateTime: TimeInterval = 0

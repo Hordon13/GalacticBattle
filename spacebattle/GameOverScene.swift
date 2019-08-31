@@ -22,19 +22,11 @@ class GameOverScene: SKScene {
         
         let gameOverLabel = SKLabelNode(fontNamed: "The Bold Font")
         gameOverLabel.text = "Game Over"
-        gameOverLabel.fontSize = 175
-        gameOverLabel.fontColor = SKColor.white
-        gameOverLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.7)
+        gameOverLabel.fontSize = 180
+        gameOverLabel.fontColor = SKColor.red
+        gameOverLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.75)
         gameOverLabel.zPosition = 1
         self.addChild(gameOverLabel)
-        
-        let scoreLabel = SKLabelNode(fontNamed: "The Bold Font")
-        scoreLabel.text = "Score: \(score)"
-        scoreLabel.fontSize = 100
-        scoreLabel.fontColor = SKColor.white
-        scoreLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.55)
-        scoreLabel.zPosition = 1
-        self.addChild(scoreLabel)
         
         let defaults = UserDefaults()
         var highScore = defaults.integer(forKey: "highScoreSaved")
@@ -48,16 +40,30 @@ class GameOverScene: SKScene {
         highScoreLabel.text = "Best: \(highScore)"
         highScoreLabel.fontSize = 100
         highScoreLabel.fontColor = SKColor.white
-        highScoreLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.45)
+        highScoreLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.6)
         highScoreLabel.zPosition = 1
         self.addChild(highScoreLabel)
         
+        let scoreLabel = SKLabelNode(fontNamed: "The Bold Font")
+        scoreLabel.text = "Score: \(score)"
+        scoreLabel.fontSize = 100
+        scoreLabel.fontColor = SKColor.white
+        scoreLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.5)
+        scoreLabel.zPosition = 1
+        self.addChild(scoreLabel)
+        
         restartLabel.text = "Try Again"
         restartLabel.fontSize = 90
-        restartLabel.fontColor = SKColor.white
+        restartLabel.fontColor = SKColor.yellow
         restartLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.2)
         restartLabel.zPosition = 1
         self.addChild(restartLabel)
+        
+        let faintOut = SKAction.fadeAlpha(to: 0.2, duration: 1)
+        let faintIn = SKAction.fadeAlpha(to: 1.0, duration: 0.7)
+        let faintSeq = SKAction.sequence([faintOut, faintIn])
+        let faintEffect = SKAction.repeatForever(faintSeq)
+        restartLabel.run(faintEffect)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
